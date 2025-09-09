@@ -2,14 +2,23 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import "./i18n/index.js";
-import { I18nextProvider } from "react-i18next";
-import i18n from "./i18n/index.js";
+import { Provider } from "react-redux";
+import { store } from "./store/store.jsx";
+
+import { LoadScript } from "@react-google-maps/api";
+import { AuthProvider } from "./components/oauth/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <I18nextProvider i18n={i18n}>
-      <App />
-    </I18nextProvider>
-  </StrictMode>
+  <Provider store={store}>
+    <LoadScript
+      googleMapsApiKey="AIzaSyAyBjAXybQ98p7VJfnLICb7o1tBKWpOgV0"
+      loadingElement={<></>}
+    >
+      <StrictMode>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </StrictMode>
+    </LoadScript>
+  </Provider>
 );

@@ -1,114 +1,274 @@
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import "animate.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init({
+  duration: 1000, // Thời gian animation (ms)
+  easing: "ease-in-out", // Hiệu ứng chuyển động
+  once: false, // Chạy một lần khi cuộn
+});
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import IndependencePage from "./pages/IndependencePage.jsx";
-import SocialismPage from "./pages/SocialismPage.jsx";
-import QuotesPage from "./pages/QuotesPage.jsx";
-import ImpactPage from "./pages/ImpactPage.jsx";
+import Home from "./pages/User/Web/HomeUser";
+// import Intro from "./pages/User/Web/Intro";
+import { ToastContainer, Zoom, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Booking from "./pages/User/Web/Booking";
+import Shop from "./pages/User/Web/Shop";
+import Workshop from "./pages/User/Web/Workshop";
+// import NavigaForWeb from "./components/NavigaForWeb";
 
-const topicImages = {
-  independence: "https://cdn.pixabay.com/photo/2017/01/20/00/30/vietnam-1994674_1280.jpg",
-  socialism: "https://cdn.pixabay.com/photo/2016/11/29/09/32/ho-chi-minh-1863527_1280.jpg",
-  quotes: "https://cdn.pixabay.com/photo/2017/06/20/19/22/flag-2422451_1280.jpg",
-  impact: "https://cdn.pixabay.com/photo/2016/11/29/09/32/ho-chi-minh-1863528_1280.jpg"
-};
+import { Outlet } from "react-router-dom";
+// manager
+import TestButton from "../src/components/manager/TestButton";
+import Manager1 from "../src/components/manager/sildebarLeft/SildebarLeft";
+import Manager from "./pages/manager/manager";
+import DashboardManager from "./pages/manager/dashboard/Dashboard";
+import AddCustomerManager from "./pages/manager/customer/AddCustomer";
+import ListCustomerManager from "./pages/manager/customer/ListCustomer";
+import AddStaff from "./pages/manager/staff/AddStaff";
+import ListStaff from "./pages/manager/staff/ListStaff";
+import CustomerDetail from "./components/manager/customer/CustomerDetail";
+import DoctorDetail from "./components/manager/doctor/DoctorDetail";
+import AcceptDoctor from "./pages/manager/doctor/AcceptDoctor";
+import ListDoctor from "./pages/manager/doctor/ListDoctor";
+import EditDoctor from "./pages/manager/doctor/EditDoctor";
+import AddPackages from "./pages/manager/services/AddService";
+import ListPackages from "./pages/manager/services/ListService";
+import ListPendingReplies from "./pages/manager/pending_replies/ListPendingReplies";
+import ProfileManager from "./pages/manager/profile/Profile";
+import HistoryPatient1 from "./components/manager/customer/HistoryPatient";
+import BookingList from "./pages/manager/booking/Booking";
+import BookingDetail from "./pages/manager/booking/BookingDetail";
+import Transactions from "./pages/manager/transaction/Transactions";
+//staff
+import Staff from "./pages/staff/Staff";
+import Chatbox from "./components/staff/Chatbox";
+import HomeStaff from "./pages/staff/home/HomeStaff";
+import ListCustomerStaff from "./pages/staff/listCustomer/ListCustomer";
+import MessengerUI from "./pages/staff/messager/Message";
+import DashboardStaff from "./pages/staff/dashboard/Dashboard";
+import Regist from "./components/Web/Regist";
+import ListDoctorStaff from "./pages/staff/doctor/ListOfDoctor";
+import StaffProfile from "./pages/staff/profile/StaffProfile";
+import BlogStaff from "../src/pages/staff/blog/Blog";
+//user
 
-function Home() {
-  return (
-    <main className="container mx-auto px-4 py-10 animate-fadein">
-      <section className="mb-10">
-        <h2 className="text-3xl font-extrabold mb-8 text-red-700 tracking-tight animate-slidein">Mục lục chủ đề</h2>
-        <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <li className="group bg-white rounded-2xl shadow-xl p-0 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 animate-card">
-            <Link to="/independence" className="block h-full">
-              <div className="relative h-44 overflow-hidden">
-                <img src={topicImages.independence} alt="Độc lập dân tộc" className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-red-700/70 to-transparent"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-red-600 group-hover:text-red-800 transition">Độc lập dân tộc</h3>
-                <p className="text-base">Lịch sử, quan điểm, các bài phát biểu, sự kiện tiêu biểu về độc lập dân tộc.</p>
-              </div>
-            </Link>
-          </li>
-          <li className="group bg-white rounded-2xl shadow-xl p-0 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 animate-card delay-100">
-            <Link to="/socialism" className="block h-full">
-              <div className="relative h-44 overflow-hidden">
-                <img src={topicImages.socialism} alt="Chủ nghĩa xã hội" className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-700/70 to-transparent"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-green-700 group-hover:text-green-900 transition">Chủ nghĩa xã hội</h3>
-                <p className="text-base">Định nghĩa, quan điểm của Hồ Chí Minh, các bài viết liên quan đến chủ nghĩa xã hội.</p>
-              </div>
-            </Link>
-          </li>
-          <li className="group bg-white rounded-2xl shadow-xl p-0 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 animate-card delay-200">
-            <Link to="/quotes" className="block h-full">
-              <div className="relative h-44 overflow-hidden">
-                <img src={topicImages.quotes} alt="Trích dẫn nổi bật" className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-700/70 to-transparent"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-blue-700 group-hover:text-blue-900 transition">Trích dẫn nổi bật</h3>
-                <p className="text-base">Các câu nói, tư tưởng tiêu biểu của Hồ Chí Minh về độc lập và chủ nghĩa xã hội.</p>
-              </div>
-            </Link>
-          </li>
-          <li className="group bg-white rounded-2xl shadow-xl p-0 overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:-translate-y-1 animate-card delay-300">
-            <Link to="/impact" className="block h-full">
-              <div className="relative h-44 overflow-hidden">
-                <img src={topicImages.impact} alt="Ảnh hưởng & Giá trị hiện nay" className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-yellow-700/70 to-transparent"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-yellow-700 group-hover:text-yellow-900 transition">Ảnh hưởng & Giá trị hiện nay</h3>
-                <p className="text-base">Ý nghĩa thực tiễn, giá trị với thế hệ trẻ và xã hội hiện đại.</p>
-              </div>
-            </Link>
-          </li>
-        </ul>
-      </section>
-      <section className="mt-12 text-center animate-fadein">
-        <p className="text-lg text-gray-700">Trang web cung cấp kiến thức chi tiết về tư tưởng Hồ Chí Minh. Hãy chọn chủ đề để khám phá!</p>
-      </section>
-    </main>
-  );
-}
+import LearnAboutEmo from "./pages/User/Web/LearnAboutEmo";
+import Counselor from "./pages/User/Web/Counselor";
+import Service from "./pages/User/Web/Service";
+import Blog from "./pages/User/Web/Blog";
+import TestEmotion from "./pages/User/Web/TestEmotion";
+import AddProductPage from "./components/manager/store/AddProductPage";
+import DashboardPartient from "./pages/User/Dashboard/DashboardPartient";
+import StatictisPatient from "./pages/User/Dashboard/StatictisPatient";
+import RoadMapPatient from "./pages/User/Dashboard/RoadMapPatient";
+import ProfilePatient from "./pages/User/Dashboard/ProfilePatient";
+import HistoryPatient from "./pages/User/Dashboard/HistoryPatient";
+import WeeklyPlanner from "./components/Dashboard/Patient/WeeklyPlanner";
+import DashboarDoctor from "./pages/doctor/Dashboard/DashboarDoctor";
+import StatictisDoctor from "./pages/doctor/Dashboard/StatictisDoctor";
+import ProfileDoctor from "./pages/doctor/Dashboard/ProfileDoctor";
+import RoadMapCreate from "./pages/doctor/Dashboard/RoadMapCreate";
+import TestQuestionList from "./pages/Test/TestQuestionList";
+import PrivateRoute from "./components/Web/PrivateRoute";
+import RoleRedirect from "./components/Web/RoleRedirect";
 
+import PaymentSuccess from "./components/Payment/PaymentSuccess";
+import PaymentFailure from "./components/Payment/PaymentFailure";
+import PaymentCallback from "./components/Payment/PaymentCallback";
+import Chat from "./components/Chatbox/Chat";
+import PatientBooking from "./pages/doctor/Dashboard/PatientBooking";
+import Shopping from "./pages/User/Dashboard/Shopping";
+import OAuthCallback from "./components/oauth/callback";
+import VerifyDoctorEmail from "./components/oauth/verifiEmail";
+import { DataProvider } from "./components/IntroComponents/DataContext";
+import Intro from "./pages/User/Web/Intro";
+import AIChatBoxWithEmo from "./pages/User/Web/AIChatBoxWithEmo";
+import TokenValidator from "./components/auth/TokenValidator";
+import TokenDemoPage from "./pages/Test/TokenDemoPage";
+import Lottie from "./test/Lottie";
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gradient-to-b from-red-100 to-yellow-50 text-gray-900 font-sans">
-        <header className="bg-red-600 text-white py-8 shadow-lg animate-header">
-          <div className="container mx-auto px-4 flex flex-col items-center">
-            <div className="relative mb-4">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Ho_Chi_Minh_1946.jpg" alt="Hồ Chí Minh" className="w-32 h-32 rounded-full border-4 border-yellow-400 shadow-2xl object-cover animate-avatar" />
-              <span className="absolute bottom-2 right-2 w-6 h-6 bg-green-400 rounded-full border-2 border-white animate-pulse"></span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-2 text-center drop-shadow-lg animate-slidein">Tư tưởng Hồ Chí Minh về Độc lập Dân tộc và Chủ nghĩa Xã hội</h1>
-            <p className="text-xl md:text-2xl italic animate-fadein">"Không có gì quý hơn độc lập tự do"</p>
-            <nav className="mt-6 flex flex-wrap gap-4 justify-center animate-fadein">
-              <Link to="/" className="px-5 py-2 rounded-full bg-white text-red-700 font-bold shadow hover:bg-yellow-100 hover:scale-105 transition-all duration-300">Trang chủ</Link>
-              <Link to="/independence" className="px-5 py-2 rounded-full bg-white text-red-700 font-bold shadow hover:bg-yellow-100 hover:scale-105 transition-all duration-300">Độc lập dân tộc</Link>
-              <Link to="/socialism" className="px-5 py-2 rounded-full bg-white text-green-700 font-bold shadow hover:bg-yellow-100 hover:scale-105 transition-all duration-300">Chủ nghĩa xã hội</Link>
-              <Link to="/quotes" className="px-5 py-2 rounded-full bg-white text-blue-700 font-bold shadow hover:bg-yellow-100 hover:scale-105 transition-all duration-300">Trích dẫn</Link>
-              <Link to="/impact" className="px-5 py-2 rounded-full bg-white text-yellow-700 font-bold shadow hover:bg-yellow-100 hover:scale-105 transition-all duration-300">Ảnh hưởng & Giá trị</Link>
-            </nav>
-          </div>
-        </header>
+    <>
+      {/* <TokenValidator> */}
+      <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/independence" element={<IndependencePage />} />
-          <Route path="/socialism" element={<SocialismPage />} />
-          <Route path="/quotes" element={<QuotesPage />} />
-          <Route path="/impact" element={<ImpactPage />} />
+          {/* Role-based dashboard redirect */}
+          <Route path="/dashboard" element={<RoleRedirect />} />
+
+          {/* Các route chính */}
+          <Route
+            path="/daily-habits"
+            element={
+              <DataProvider>
+                <Intro />
+              </DataProvider>
+            }
+          />
+          <Route path="/" element={<Navigate to="/EMO" />} />
+          <Route path="regist" element={<Regist />} />
+          <Route path="/verify-email" element={<VerifyDoctorEmail />} />
+          <Route path="/token-demo" element={<TokenDemoPage />} />
+          <Route path="/ai3d1" element={<Lottie />} />
+          <Route path="/EMO" element={<Home />}>
+            <Route index element={<Navigate to="learnAboutEmo" replace />} />
+            <Route path="learnAboutEmo" element={<LearnAboutEmo />} />
+            <Route path="counselor" element={<Counselor />} />
+            <Route path="booking/:doctorId" element={<Booking />} />
+            <Route path="service" element={<Service />} />
+            <Route path="blog" element={<BlogStaff />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="workshop" element={<Workshop />} />
+            <Route path="testEmotion" element={<TestEmotion />} />
+            <Route path="TestQuestionList" element={<TestQuestionList />} />
+            <Route path="addProduct" element={<AddProductPage />} />
+          </Route>
+          <Route path="/AIChatBoxWithEmo" element={<AIChatBoxWithEmo />} />
+          <Route path="/oauth/callback" element={<OAuthCallback />} />
+          {/* Payment routes - Only for Patient */}
+          <Route element={<PrivateRoute allowedRoles={["User"]} />}>
+            <Route path="/EMO/payment-success" element={<PaymentSuccess />} />
+            <Route path="/EMO/payment-failure" element={<PaymentFailure />} />
+          </Route>
+
+          {/* Payment callback - Available for authenticated users */}
+          <Route element={<PrivateRoute allowedRoles={["User"]} />}>
+            <Route path="/payments/callback" element={<PaymentCallback />} />
+          </Route>
+
+          {/* Chat routes - Available for Patient and Doctor */}
+          <Route element={<PrivateRoute allowedRoles={["User", "Doctor"]} />}>
+            <Route path="/chat" element={<Chat />} />
+          </Route>
+          {/* Route Patient - Protected */}
+          <Route element={<PrivateRoute allowedRoles={["User"]} />}>
+            <Route path="/DashboardPartient" element={<DashboardPartient />}>
+              <Route index element={<Navigate to="StatictisPatient" />} />
+              <Route path="StatictisPatient" element={<StatictisPatient />} />
+              <Route path="Roadmap" element={<RoadMapPatient />} />
+              <Route path="ProfilePatient" element={<ProfilePatient />} />
+              <Route path="HistoryPatient" element={<HistoryPatient />} />
+              <Route path="Chat" element={<Chat />} />
+              <Route path="Shopping" element={<Shopping />} />
+            </Route>
+          </Route>
+          <Route element={<PrivateRoute allowedRoles={["Doctor"]} />}>
+            <Route path="/DashboardDoctor" element={<DashboarDoctor />}>
+              <Route index element={<Navigate to="StatictisDoctor" />} />
+              <Route path="StatictisDoctor" element={<StatictisDoctor />} />
+              <Route
+                path="MedicalRecordsCreate"
+                element={<RoadMapCreate />}
+              />
+              <Route path="ProfileDoctor" element={<ProfileDoctor />} />
+              <Route path="Chat" element={<Chat />} />
+              <Route path="PatientBooking" element={<PatientBooking />} />
+            </Route>
+          </Route>
+          {/* Route Manager - Protected */}
+          <Route element={<PrivateRoute allowedRoles={["Manager"]} />}>
+            <Route path="/Manager" element={<Manager />}>
+              <Route index element={<Navigate to="dashboard" replace />} />
+              <Route path="Button" element={<TestButton />} />
+              <Route path="dashboard" element={<DashboardManager />} />
+
+              {/* <Route path="customer" element={<AddCustomerManager />} /> */}
+              <Route path="addCustomer" element={<AddCustomerManager />} />
+              <Route path="viewCustomer" element={<ListCustomerManager />} />
+              <Route path="viewCustomer/:id" element={<CustomerDetail />} />
+              <Route path="booking" element={<BookingList />} />
+              <Route path="booking/:id" element={<BookingDetail />} />
+              <Route path="transaction" element={<Transactions />} />
+              <Route path="transaction/:id" element={<Transactions />} />
+
+              <Route path="addStaff" element={<AddStaff />} />
+              <Route path="viewStaff" element={<ListStaff />} />
+              {/* <Route path="doctor" element={<AcceptDoctor />} /> */}
+              <Route path="addDoctor" element={<AcceptDoctor />} />
+              <Route path="viewDoctor" element={<ListDoctor />} />
+              <Route path="ProfileDoctor/:userId" element={<EditDoctor />} />
+              <Route path="viewDoctor/:userId" element={<DoctorDetail />} />
+
+              {/* <Route path="promotion" element={<AddPackages />} /> */}
+              <Route path="addPackages" element={<AddPackages />} />
+              <Route path="managePackages" element={<ListPackages />} />
+              {/* <Route path="feedback" element={<ListPendingReplies />} /> */}
+              <Route path="view-message" element={<ListPendingReplies />} />
+            </Route>
+          </Route>
+
+          {/* Manager Profile - Protected */}
+          <Route element={<PrivateRoute allowedRoles={["Manager"]} />}>
+            <Route path="/manager/profile" element={<ProfileManager />} />
+          </Route>
+          {/* Route Staff - Protected */}
+          <Route element={<PrivateRoute allowedRoles={["Staff"]} />}>
+            <Route path="/staff" element={<Staff />}>
+              <Route index element={<Navigate to="home" replace />} />
+              <Route path="chat" element={<Chatbox />} />
+              <Route path="regit" element={<Regist />} />
+              <Route path="customer" element={<ListCustomerStaff />} />
+              <Route path="doctor" element={<Counselor />} />
+              <Route path="message" element={<MessengerUI />} />
+              <Route path="profile" element={<StaffProfile />} />
+              <Route path="blog" element={<BlogStaff />} />
+              {/* <Route path="home" element={<LearnAboutEmo />} /> */}
+              <Route path="home" element={<HomeStaff />} />
+              <Route path="dashboard" element={<DashboardStaff />} />
+            </Route>
+          </Route>
+          {/* Các route khác */}
+
+          {/* Unauthorized access route */}
+          <Route
+            path="/unauthorized"
+            element={
+              <div className="min-h-screen flex items-center justify-center bg-gray-50">
+                <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 text-center">
+                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                    <svg
+                      className="h-6 w-6 text-red-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 18.5c-.77.833.192 2.5 1.732 2.5z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                    Access Denied
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-4">
+                    You don't have permission to access this page. Please
+                    contact your administrator if you believe this is an
+                    error.
+                  </p>
+                  <button
+                    onClick={() => window.history.back()}
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm"
+                  >
+                    Go Back
+                  </button>
+                </div>
+              </div>
+            }
+          />
         </Routes>
-        <footer className="bg-gray-100 text-center py-4 text-gray-500 mt-10 border-t animate-fadein">
-          &copy; {new Date().getFullYear()} Tư tưởng Hồ Chí Minh
-        </footer>
-      </div>
-    </Router>
+      </Router>
+
+      <ToastContainer />
+      {/* </TokenValidator> */}
+    </>
   );
 }
 
