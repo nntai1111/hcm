@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.jsx";
 
 import { LoadScript } from "@react-google-maps/api";
-import { AuthProvider } from "./components/oauth/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -15,9 +14,7 @@ createRoot(document.getElementById("root")).render(
       loadingElement={<></>}
     >
       <StrictMode>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </StrictMode>
     </LoadScript>
   </Provider>

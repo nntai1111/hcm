@@ -3,11 +3,8 @@ import { motion } from "framer-motion";
 import styles from "../../styles/Web/BackGround.module.css";
 import DownloadSection from "./DownloadSection";
 import IntrFPT from "./IntrFPT";
-import IssueEmotion from "./IssueEmotion";
-import OptionService from "./OptionService";
 import ImproveEmotion from "./ImproveEmotion";
 import QuestionRequest from "./QuestionRequest";
-import GoogleMapComponent from "../GoogleMap/GoogleMapComponent";
 
 const MOBILE_MAX_WIDTH = 768;
 
@@ -132,9 +129,7 @@ const BackGround = () => {
           <div>
             <QuestionRequest />
           </div>
-          <div>
-            <GoogleMapComponent />
-          </div>
+
         </>
       )}
     </>
