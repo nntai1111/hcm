@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { createContext, useContext, useState, useCallback, useEffect } from "react";
 
 export const DataContext = createContext();
 export const useData = () => useContext(DataContext);
@@ -29,260 +23,105 @@ export const DataProvider = ({ children }) => {
   const [entertainmentTotal, setEntertainmentTotal] = useState(0);
   const [entertainmentPage, setEntertainmentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingMoreEntertainment, setIsLoadingMoreEntertainment] =
-    useState(false);
+  const [isLoadingMoreEntertainment, setIsLoadingMoreEntertainment] = useState(false);
   const [isLoadingMoreFood, setIsLoadingMoreFood] = useState(false);
   const [isLoadingMorePhysical, setIsLoadingMorePhysical] = useState(false);
-  const [isLoadingMoreTherapeutic, setIsLoadingMoreTherapeutic] =
-    useState(false);
+  const [isLoadingMoreTherapeutic, setIsLoadingMoreTherapeutic] = useState(false);
   const [isLoadingMoreIndustry, setIsLoadingMoreIndustry] = useState(false);
 
-  // Supabase config
-  const SUPABASE_URL = "https://oqoundglstrviiuyvanl.supabase.co/rest/v1";
-  const SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  // Hardcoded data
+  const hardcodedEmotions = [
+    { Id: 1, Name: "Happy", Description: "Feeling joyful and content" },
+    { Id: 2, Name: "Sad", Description: "Feeling down or upset" },
+    { Id: 3, Name: "Excited", Description: "Feeling enthusiastic and eager" },
+  ];
+
+  const hardcodedImprovementGoals = [
+    { Id: 1, Name: "Reduce Stress", Description: "Lower stress levels through relaxation" },
+    { Id: 2, Name: "Improve Focus", Description: "Enhance concentration and productivity" },
+    { Id: 3, Name: "Boost Energy", Description: "Increase physical and mental energy" },
+  ];
+
+  const hardcodedEntertainmentActivities = [
+    { Id: 1, Name: "Watch Movie", Description: "Enjoy a film", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 2, Name: "Play Board Game", Description: "Engage in a fun game", IntensityLevel: "Medium", ImpactLevel: "Positive" },
+    { Id: 3, Name: "Listen to Music", Description: "Relax with music", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 4, Name: "Read Novel", Description: "Immerse in a story", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 5, Name: "Karaoke", Description: "Sing your favorite songs", IntensityLevel: "Medium", ImpactLevel: "Positive" },
+  ];
+
+  const hardcodedFoodActivities = [
+    { Id: 1, Name: "Healthy Salad", Description: "Prepare a nutritious salad", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 2, Name: "Smoothie", Description: "Blend a fruit smoothie", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 3, Name: "Baked Chicken", Description: "Cook a healthy chicken dish", IntensityLevel: "Medium", ImpactLevel: "Positive" },
+  ];
+
+  const hardcodedPhysicalActivities = [
+    { Id: 1, Name: "Yoga", Description: "Practice yoga poses", IntensityLevel: "Medium", ImpactLevel: "Positive" },
+    { Id: 2, Name: "Running", Description: "Go for a run", IntensityLevel: "High", ImpactLevel: "Positive" },
+    { Id: 3, Name: "Stretching", Description: "Perform stretching exercises", IntensityLevel: "Low", ImpactLevel: "Positive" },
+  ];
+
+  const hardcodedTherapeuticActivities = [
+    { Id: 1, Name: "Meditation", Description: "Practice mindfulness", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 2, Name: "Deep Breathing", Description: "Focus on breath control", IntensityLevel: "Low", ImpactLevel: "Positive" },
+    { Id: 3, Name: "Journaling", Description: "Write thoughts and feelings", IntensityLevel: "Low", ImpactLevel: "Positive" },
+  ];
+
+  const hardcodedIndustries = [
+    { Id: 1, IndustryName: "Technology", Description: "Tech-related activities" },
+    { Id: 2, IndustryName: "Healthcare", Description: "Healthcare-related activities" },
+    { Id: 3, IndustryName: "Education", Description: "Educational activities" },
+  ];
 
   // Fetch all emotions
   const fetchAllEmotions = useCallback(async () => {
-    try {
-      const res = await fetch(`${SUPABASE_URL}/Emotions?select=*`, {
-        headers: {
-          "Content-Type": "application/json",
-          apikey: SUPABASE_API_KEY,
-        },
-      });
-      if (!res.ok) {
-        console.error("fetchAllEmotions failed:", res.status, await res.text());
-        return [];
-      }
-      const data = await res.json();
-      return data;
-    } catch (err) {
-      console.error("fetchAllEmotions error:", err);
-      return [];
-    }
-  }, [SUPABASE_URL, SUPABASE_API_KEY]);
+    return hardcodedEmotions;
+  }, []);
 
   // Fetch all improvement goals
   const fetchAllImprovementGoals = useCallback(async () => {
-    try {
-      const res = await fetch(`${SUPABASE_URL}/ImprovementGoals?select=*`, {
-        headers: {
-          "Content-Type": "application/json",
-          apikey: SUPABASE_API_KEY,
-        },
-      });
-      if (!res.ok) {
-        console.error(
-          "fetchAllImprovementGoals failed:",
-          res.status,
-          await res.text()
-        );
-        return [];
-      }
-      const data = await res.json();
-      return data.map((goal) => ({
-        value: goal.Id,
-        label: goal.Name,
-        description: goal.Description,
-      }));
-    } catch (err) {
-      console.error("fetchAllImprovementGoals error:", err);
-      return [];
-    }
-  }, [SUPABASE_URL, SUPABASE_API_KEY]);
+    return hardcodedImprovementGoals.map((goal) => ({
+      value: goal.Id,
+      label: goal.Name,
+      description: goal.Description,
+    }));
+  }, []);
 
-  // Fetch entertainment activities (Supabase, phân trang)
-  const fetchEntertainmentPage = useCallback(
-    async (page = 1, pageSize = 10) => {
-      try {
-        const offset = (page - 1) * pageSize;
-        const res = await fetch(
-          `${SUPABASE_URL}/EntertainmentActivities?select=*&order=Name.asc&limit=${pageSize}&offset=${offset}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              apikey: SUPABASE_API_KEY,
-              Prefer: "count=exact",
-            },
-          }
-        );
-        if (!res.ok) {
-          console.error(
-            "fetchEntertainmentPage failed:",
-            res.status,
-            await res.text()
-          );
-          return { data: [], total: 0 };
-        }
-        const data = await res.json();
-        // Lấy tổng số bản ghi từ Content-Range header
-        const contentRange = res.headers.get("Content-Range");
-        let total = 0;
-        if (contentRange) {
-          // VD: "0-9/23"
-          const match = contentRange.match(/\/(\d+)$/);
-          if (match) total = parseInt(match[1], 10);
-        }
-        return { data, total };
-      } catch (err) {
-        console.error("fetchEntertainmentPage error:", err);
-        return { data: [], total: 0 };
-      }
-    },
-    [SUPABASE_URL, SUPABASE_API_KEY]
-  );
+  // Fetch entertainment activities (phân trang)
+  const fetchEntertainmentPage = useCallback(async (page = 1, pageSize = 10) => {
+    const offset = (page - 1) * pageSize;
+    const data = hardcodedEntertainmentActivities.slice(offset, offset + pageSize);
+    return { data, total: hardcodedEntertainmentActivities.length };
+  }, []);
 
-  // Fetch food activities (Supabase, phân trang)
-  const fetchFoodPage = useCallback(
-    async (page = 1, pageSize = 10) => {
-      try {
-        const offset = (page - 1) * pageSize;
-        const res = await fetch(
-          `${SUPABASE_URL}/FoodActivities?select=*&order=Name.asc&limit=${pageSize}&offset=${offset}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              apikey: SUPABASE_API_KEY,
-              Prefer: "count=exact",
-            },
-          }
-        );
-        if (!res.ok) {
-          console.error("fetchFoodPage failed:", res.status, await res.text());
-          return { data: [], total: 0 };
-        }
-        const data = await res.json();
-        const contentRange = res.headers.get("Content-Range");
-        let total = 0;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)$/);
-          if (match) total = parseInt(match[1], 10);
-        }
-        return { data, total };
-      } catch (err) {
-        console.error("fetchFoodPage error:", err);
-        return { data: [], total: 0 };
-      }
-    },
-    [SUPABASE_URL, SUPABASE_API_KEY]
-  );
+  // Fetch food activities (phân trang)
+  const fetchFoodPage = useCallback(async (page = 1, pageSize = 10) => {
+    const offset = (page - 1) * pageSize;
+    const data = hardcodedFoodActivities.slice(offset, offset + pageSize);
+    return { data, total: hardcodedFoodActivities.length };
+  }, []);
 
-  // Fetch physical activities (Supabase, phân trang)
-  const fetchPhysicalPage = useCallback(
-    async (page = 1, pageSize = 10) => {
-      try {
-        const offset = (page - 1) * pageSize;
-        const res = await fetch(
-          `${SUPABASE_URL}/PhysicalActivities?select=*&order=Name.asc&limit=${pageSize}&offset=${offset}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              apikey: SUPABASE_API_KEY,
-              Prefer: "count=exact",
-            },
-          }
-        );
-        if (!res.ok) {
-          console.error(
-            "fetchPhysicalPage failed:",
-            res.status,
-            await res.text()
-          );
-          return { data: [], total: 0 };
-        }
-        const data = await res.json();
-        const contentRange = res.headers.get("Content-Range");
-        let total = 0;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)$/);
-          if (match) total = parseInt(match[1], 10);
-        }
-        return { data, total };
-      } catch (err) {
-        console.error("fetchPhysicalPage error:", err);
-        return { data: [], total: 0 };
-      }
-    },
-    [SUPABASE_URL, SUPABASE_API_KEY]
-  );
+  // Fetch physical activities (phân trang)
+  const fetchPhysicalPage = useCallback(async (page = 1, pageSize = 10) => {
+    const offset = (page - 1) * pageSize;
+    const data = hardcodedPhysicalActivities.slice(offset, offset + pageSize);
+    return { data, total: hardcodedPhysicalActivities.length };
+  }, []);
 
-  // Fetch therapeutic activities (Supabase, phân trang)
-  const fetchTherapeuticPage = useCallback(
-    async (page = 1, pageSize = 10) => {
-      try {
-        const offset = (page - 1) * pageSize;
-        const res = await fetch(
-          `${SUPABASE_URL}/TherapeuticActivities?select=*&order=Name.asc&limit=${pageSize}&offset=${offset}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              apikey: SUPABASE_API_KEY,
-              Prefer: "count=exact",
-            },
-          }
-        );
-        if (!res.ok) {
-          console.error(
-            "fetchTherapeuticPage failed:",
-            res.status,
-            await res.text()
-          );
-          return { data: [], total: 0 };
-        }
-        const data = await res.json();
-        const contentRange = res.headers.get("Content-Range");
-        let total = 0;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)$/);
-          if (match) total = parseInt(match[1], 10);
-        }
-        return { data, total };
-      } catch (err) {
-        console.error("fetchTherapeuticPage error:", err);
-        return { data: [], total: 0 };
-      }
-    },
-    [SUPABASE_URL, SUPABASE_API_KEY]
-  );
+  // Fetch therapeutic activities (phân trang)
+  const fetchTherapeuticPage = useCallback(async (page = 1, pageSize = 10) => {
+    const offset = (page - 1) * pageSize;
+    const data = hardcodedTherapeuticActivities.slice(offset, offset + pageSize);
+    return { data, total: hardcodedTherapeuticActivities.length };
+  }, []);
 
-  // Fetch industries (Supabase, phân trang)
-  const fetchIndustryPage = useCallback(
-    async (page = 1, pageSize = 10) => {
-      try {
-        const offset = (page - 1) * pageSize;
-        const res = await fetch(
-          `${SUPABASE_URL}/Industries?select=*&order=IndustryName.asc&limit=${pageSize}&offset=${offset}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              apikey: SUPABASE_API_KEY,
-              Prefer: "count=exact",
-            },
-          }
-        );
-        if (!res.ok) {
-          console.error(
-            "fetchIndustryPage failed:",
-            res.status,
-            await res.text()
-          );
-          return { data: [], total: 0 };
-        }
-        const data = await res.json();
-        const contentRange = res.headers.get("Content-Range");
-        let total = 0;
-        if (contentRange) {
-          const match = contentRange.match(/\/(\d+)$/);
-          if (match) total = parseInt(match[1], 10);
-        }
-        return { data, total };
-      } catch (err) {
-        console.error("fetchIndustryPage error:", err);
-        return { data: [], total: 0 };
-      }
-    },
-    [SUPABASE_URL, SUPABASE_API_KEY]
-  );
+  // Fetch industries (phân trang)
+  const fetchIndustryPage = useCallback(async (page = 1, pageSize = 10) => {
+    const offset = (page - 1) * pageSize;
+    const data = hardcodedIndustries.slice(offset, offset + pageSize);
+    return { data, total: hardcodedIndustries.length };
+  }, []);
 
   // Load more entertainment (phân trang)
   const loadMoreEntertainment = useCallback(async () => {
@@ -510,7 +349,8 @@ export const DataProvider = ({ children }) => {
         loadMoreTherapeutic,
         isLoadingMoreIndustry,
         loadMoreIndustry,
-      }}>
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

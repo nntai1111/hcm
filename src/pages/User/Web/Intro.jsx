@@ -14,15 +14,10 @@ import { BirthDateQuestion } from "../../../components/IntroComponents/BirthDate
 import { AddressQuestion } from "../../../components/IntroComponents/AddressQuestion";
 import { ThankYouScreen } from "../../../components/IntroComponents/ThankYouScreen";
 import { WelcomePopup } from "../../../components/IntroComponents/WelcomePopup";
-import {
-  AvailableTimePerDay,
-  SleepHoursLevel,
-  ExerciseFrequency,
-} from "../../../constants/introData";
+import { AvailableTimePerDay, SleepHoursLevel, ExerciseFrequency } from "../../../constants/introData";
 import { useAudio } from "../../../hooks/useAudio";
 import { useMultiStepForm } from "../../../hooks/useMultiStepForm";
 import { useData } from "../../../components/IntroComponents/DataContext";
-import axios from "axios";
 
 const Intro = () => {
   const questionRef = useRef(null);
@@ -49,17 +44,9 @@ const Intro = () => {
   const [hasFetchedProfile, setHasFetchedProfile] = useState(false);
   const [availableJobs, setAvailableJobs] = useState([]);
   const [selectedJobId, setSelectedJobId] = useState(null);
-  const BASE_URL = import.meta.env.VITE_API_LIFESTYLE_URL;
 
-  const PROFILE_URL = "https://mental-care-server-nodenet.onrender.com";
-  const { currentStep, formData, goToNext, goToPrevious, updateFormData } =
-    useMultiStepForm(15);
-  const {
-    playing,
-    muted,
-    toggle: toggleAudio,
-    toggleMute,
-  } = useAudio("/sounds/chill.mp3");
+  const { currentStep, formData, goToNext, goToPrevious, updateFormData } = useMultiStepForm(15);
+  const { playing, muted, toggle: toggleAudio, toggleMute } = useAudio("/sounds/chill.mp3");
   const {
     emotions,
     isLoading,
@@ -69,71 +56,70 @@ const Intro = () => {
     physicalActivities,
     therapeuticActivities,
     industries,
-    // ... các biến khác
-  } = useData();
-  const {
     entertainmentTotal,
     entertainmentPage,
     loadMoreEntertainment,
-    isLoading: isLoadingEntertainmentActivities,
-  } = useData();
-  const {
+    isLoadingMoreEntertainment,
     foodTotal,
     foodPage,
     loadMoreFood,
-    isLoading: isLoadingFoodActivities,
     isLoadingMoreFood,
-  } = useData();
-  const {
     physicalTotal,
     physicalPage,
     loadMorePhysical,
-    isLoading: isLoadingPhysicalActivities,
     isLoadingMorePhysical,
-  } = useData();
-  const {
     therapeuticTotal,
     therapeuticPage,
     loadMoreTherapeutic,
-    isLoading: isLoadingTherapeutic,
     isLoadingMoreTherapeutic,
-  } = useData();
-  const {
     industryTotal,
     industryPage,
     loadMoreIndustry,
-    isLoading: isLoadingIndustry,
     isLoadingMoreIndustry,
   } = useData();
-  const profileId = localStorage.getItem("profileId");
-  // Fetch patient profile only once
+
+  const profileId = localStorage.getItem("profileId") || "default-profile-id";
+
+  // Hardcoded patient profile
+  const hardcodedProfile = {
+    FullName: "John Doe",
+    Gender: "Male",
+    Email: "john.doe@example.com",
+    PhoneNumber: "123-456-7890",
+    JobId: 1,
+  };
+
+  // Hardcoded jobs data
+  const hardcodedJobs = {
+    1: [
+      { Id: 1, JobTitle: "Software Engineer" },
+      { Id: 2, JobTitle: "Data Analyst" },
+      { Id: 3, JobTitle: "Product Manager" },
+    ],
+    2: [
+      { Id: 4, JobTitle: "Nurse" },
+      { Id: 5, JobTitle: "Doctor" },
+      { Id: 6, JobTitle: "Pharmacist" },
+    ],
+    3: [
+      { Id: 7, JobTitle: "Teacher" },
+      { Id: 8, JobTitle: "Professor" },
+      { Id: 9, JobTitle: "Academic Advisor" },
+    ],
+  };
+
+  // Mock fetch patient profile
   const fetchPatientProfile = useCallback(async () => {
     if (hasFetchedProfile) return;
 
     try {
       setIsFetchingProfile(true);
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_API}/patient-profiles/${profileId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      const data = response.data;
-      console.log("Patient profile API response:", data);
-      updateFormData("fullName", data.FullName || "");
-      updateFormData("gender", data.Gender || "");
-      updateFormData("email", data.Email || "");
-      updateFormData("phoneNumber", data.PhoneNumber || "");
-      if (data.JobId) setSelectedJobId(data.JobId);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
+      updateFormData("fullName", hardcodedProfile.FullName);
+      updateFormData("gender", hardcodedProfile.Gender);
+      updateFormData("email", hardcodedProfile.Email);
+      updateFormData("phoneNumber", hardcodedProfile.PhoneNumber);
+      if (hardcodedProfile.JobId) setSelectedJobId(hardcodedProfile.JobId);
       setHasFetchedProfile(true);
     } catch (error) {
       console.error("Error fetching patient profile:", error);
@@ -147,34 +133,12 @@ const Intro = () => {
     fetchPatientProfile();
   }, [fetchPatientProfile]);
 
-  // Fetch jobs based on industryId
+  // Mock fetch jobs based on industryId
   const fetchJobsByIndustry = useCallback(async (industryId) => {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `https://oqoundglstrviiuyvanl.supabase.co/rest/v1/Jobs?IndustryId=eq.${industryId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-            Prefer: "count=exact",
-          },
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Jobs API returned status: ${response.status}`);
-      }
-      console.log("Jobs API:", response);
-      const data = await response.json();
-      console.log("Jobs API response:", data);
-      setAvailableJobs(data || []);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
+      const jobs = hardcodedJobs[industryId] || [];
+      setAvailableJobs(jobs);
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setAvailableJobs([]);
@@ -198,40 +162,11 @@ const Intro = () => {
     setSelectedMoods(moods);
   };
 
+  // Mock send emotion data
   const sendEmotionData = async () => {
     try {
-      console.log("Sending emotions:", selectedMoods);
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        EmotionId: Array.isArray(selectedMoods)
-          ? selectedMoods
-          : [selectedMoods],
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/daily-emotions`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Emotion API returned status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Emotion API response:", data);
+      console.log("Mock sending emotions:", selectedMoods);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending emotion data:", error);
@@ -239,39 +174,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send lifestyle data
   const sendLifestyleData = async () => {
     try {
-      console.log("Sending lifestyle data:", formData);
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/habits-lifestyle`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            PatientId: localStorage.getItem("profileId"),
-            LogDate: new Date().toISOString(),
-            SleepHours: formData.sleepHours,
-            ExerciseFrequency: formData.exerciseFrequency,
-            AvailableTimePerDay: formData.availableTimePerDay,
-          }),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Lifestyle API returned status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Lifestyle API response:", data);
+      console.log("Mock sending lifestyle data:", formData);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending lifestyle data:", error);
@@ -279,44 +186,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send improvement goals
   const sendImprovementGoals = async () => {
     try {
-      console.log("Sending improvement goals:", formData.improvementGoal);
-      const improvementIds = Array.isArray(formData.improvementGoal)
-        ? formData.improvementGoal.slice(0, 2).map((id) => `${id}`)
-        : [formData.improvementGoal].slice(0, 2).map((id) => `${id}`);
-
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        ImprovementId: improvementIds,
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/habits-improvement`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(
-          `Improvement goals API returned status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Improvement goals API response:", data);
+      console.log("Mock sending improvement goals:", formData.improvementGoal);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending improvement goals:", error);
@@ -324,47 +198,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send entertainment activities
   const sendEntertainmentActivities = async () => {
     try {
-      console.log(
-        "Sending entertainment activities:",
-        formData.entertainmentActivities
-      );
-      const entertainmentIds = Array.isArray(formData.entertainmentActivities)
-        ? formData.entertainmentActivities
-        : [formData.entertainmentActivities];
-
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        EntertainmentId: entertainmentIds,
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/habits-entertainment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(
-          `Entertainment API returned status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Entertainment activities API response:", data);
+      console.log("Mock sending entertainment activities:", formData.entertainmentActivities);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending entertainment activities:", error);
@@ -372,39 +210,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send food activities
   const sendFoodActivities = async () => {
     try {
-      console.log("Sending food activities:", formData.foodActivities);
-      const foodIds = Array.isArray(formData.foodActivities)
-        ? formData.foodActivities
-        : [formData.foodActivities];
-
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        FoodId: foodIds,
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(`${import.meta.env.VITE_API}/habits-food`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Food API returned status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Food activities API response:", data);
+      console.log("Mock sending food activities:", formData.foodActivities);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending food activities:", error);
@@ -412,44 +222,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send physical activities
   const sendPhysicalActivities = async () => {
     try {
-      console.log("Sending physical activities:", formData.physicalActivities);
-      const activities = Array.isArray(formData.physicalActivities)
-        ? formData.physicalActivities
-        : [formData.physicalActivities];
-
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        PhysicalId: activities,
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/habits-physical`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(
-          `Physical activities API returned status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Physical activities API response:", data);
+      console.log("Mock sending physical activities:", formData.physicalActivities);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending physical activities:", error);
@@ -457,45 +234,11 @@ const Intro = () => {
     }
   };
 
+  // Mock send therapeutic activities
   const sendTherapeuticActivities = async () => {
     try {
-      console.log(
-        "Sending therapeutic activities:",
-        formData.therapeuticActivities
-      );
-      const activities = Array.isArray(formData.therapeuticActivities)
-        ? formData.therapeuticActivities
-        : [formData.therapeuticActivities];
-
-      const payload = {
-        PatientId: localStorage.getItem("profileId"),
-        TherapeuticId: activities,
-      };
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API}/habits-therapeutic`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Therapeutic API returned status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("Therapeutic activities API response:", data);
+      console.log("Mock sending therapeutic activities:", formData.therapeuticActivities);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error sending therapeutic activities:", error);
@@ -503,11 +246,11 @@ const Intro = () => {
     }
   };
 
+  // Mock update patient profile
   const updatePatientProfile = async (addressValue) => {
     try {
-      console.log("Updating patient profile:", {
-        FullName:
-          formData.fullName || localStorage.getItem("username") || "Unknown",
+      console.log("Mock updating patient profile:", {
+        FullName: formData.fullName || localStorage.getItem("username") || "Unknown",
         Gender: formData.gender || "Unknown",
         Allergies: formData.allergies ?? null,
         PersonalityTraits: formData.personalityTraits || null,
@@ -517,49 +260,7 @@ const Intro = () => {
         JobId: selectedJobId || null,
         BirthDate: formData.birthDate || null,
       });
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const response = await fetch(
-        `${PROFILE_URL}/api/patient-profiles/${localStorage.getItem(
-          "profileId"
-        )}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            FullName:
-              formData.fullName ||
-              localStorage.getItem("username") ||
-              "Unknown",
-            Gender: formData.gender || "Unknown",
-            Allergies: formData.allergies ?? null,
-            PersonalityTraits: formData.personalityTraits || null,
-            Address: addressValue || null,
-            Email: formData.email || null,
-            PhoneNumber: formData.phoneNumber || null,
-            JobId: selectedJobId || null,
-            BirthDate: formData.birthDate || null,
-            IsProfileCompleted: true,
-          }),
-          signal: controller.signal,
-        }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(
-          `Profile update API returned status: ${response.status}`
-        );
-      }
-
-      const data = await response.json();
-      console.log("Profile update API response:", data);
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate async delay
       return true;
     } catch (error) {
       console.error("Error updating patient profile:", error);
@@ -569,8 +270,8 @@ const Intro = () => {
 
   const submitAllDataWithAddress = async (addressValue) => {
     try {
-      await updatePatientProfile(addressValue); // Gửi đúng address
-      await submitAllData(true); // Không gọi lại updatePatientProfile bên trong
+      await updatePatientProfile(addressValue);
+      await submitAllData(true);
     } catch (error) {
       console.error("Error updating patient profile with address:", error);
     }
@@ -585,10 +286,7 @@ const Intro = () => {
       { name: "Emotion Data", function: sendEmotionData },
       { name: "Lifestyle Data", function: sendLifestyleData },
       { name: "Improvement Goals", function: sendImprovementGoals },
-      {
-        name: "Entertainment Activities",
-        function: sendEntertainmentActivities,
-      },
+      { name: "Entertainment Activities", function: sendEntertainmentActivities },
       { name: "Food Activities", function: sendFoodActivities },
       { name: "Physical Activities", function: sendPhysicalActivities },
       { name: "Therapeutic Activities", function: sendTherapeuticActivities },
@@ -607,7 +305,7 @@ const Intro = () => {
     try {
       for (const api of apiCalls) {
         try {
-          console.log(`Sending ${api.name}...`);
+          console.log(`Mock sending ${api.name}...`);
           await api.function();
           completedCalls++;
           setSubmitProgress(Math.round((completedCalls / totalCalls) * 100));
@@ -618,7 +316,7 @@ const Intro = () => {
       }
 
       console.log("All data submitted successfully, moving to step 15");
-      goToNext(); // Đảm bảo chuyển sang bước 15
+      goToNext();
       setTimeout(() => {
         if (thankYouRef.current) {
           thankYouRef.current.scrollIntoView({
@@ -671,28 +369,28 @@ const Intro = () => {
           currentStepBeforeChange === 0
             ? question2Ref
             : currentStepBeforeChange === 1
-            ? question3Ref
-            : currentStepBeforeChange === 2
-            ? question4Ref
-            : currentStepBeforeChange === 3
-            ? question5Ref
-            : currentStepBeforeChange === 4
-            ? question6Ref
-            : currentStepBeforeChange === 5
-            ? question7Ref
-            : currentStepBeforeChange === 6
-            ? question8Ref
-            : currentStepBeforeChange === 7
-            ? question9Ref
-            : currentStepBeforeChange === 8
-            ? question10Ref
-            : currentStepBeforeChange === 9
-            ? question11Ref
-            : currentStepBeforeChange === 10
-            ? question12Ref
-            : currentStepBeforeChange === 11
-            ? question13Ref
-            : thankYouRef;
+              ? question3Ref
+              : currentStepBeforeChange === 2
+                ? question4Ref
+                : currentStepBeforeChange === 3
+                  ? question5Ref
+                  : currentStepBeforeChange === 4
+                    ? question6Ref
+                    : currentStepBeforeChange === 5
+                      ? question7Ref
+                      : currentStepBeforeChange === 6
+                        ? question8Ref
+                        : currentStepBeforeChange === 7
+                          ? question9Ref
+                          : currentStepBeforeChange === 8
+                            ? question10Ref
+                            : currentStepBeforeChange === 9
+                              ? question11Ref
+                              : currentStepBeforeChange === 10
+                                ? question12Ref
+                                : currentStepBeforeChange === 11
+                                  ? question13Ref
+                                  : thankYouRef;
         if (nextRef.current) {
           nextRef.current.scrollIntoView({
             behavior: "smooth",
@@ -851,9 +549,7 @@ const Intro = () => {
           {error ? (
             <div className="text-center">
               <div className="text-red-500 text-4xl mb-3">❌</div>
-              <h3 className="text-xl font-bold text-white mb-2">
-                Đã xảy ra lỗi
-              </h3>
+              <h3 className="text-xl font-bold text-white mb-2">Đã xảy ra lỗi</h3>
               <p className="text-white/80 mb-4">{error}</p>
               <button
                 onClick={() => setSubmitError(null)}
@@ -873,12 +569,9 @@ const Intro = () => {
                 </div>
                 <p className="text-white mt-2">{progress}% hoàn thành</p>
               </div>
-              <h3 className="text-xl font-bold text-white">
-                Đang gửi dữ liệu...
-              </h3>
+              <h3 className="text-xl font-bold text-white">Đang gửi dữ liệu...</h3>
               <p className="text-white/70 text-sm mt-2">
-                Vui lòng đợi trong khi chúng tôi đang xử lý các câu trả lời của
-                bạn
+                Vui lòng đợi trong khi chúng tôi đang xử lý các câu trả lời của bạn
               </p>
             </div>
           )}
@@ -997,9 +690,7 @@ const Intro = () => {
               ref={question2Ref}
               currentQuestion="availableTimePerDay"
               formData={formData}
-              onOptionSelect={(value) =>
-                handleOptionSelect("availableTimePerDay", value)
-              }
+              onOptionSelect={(value) => handleOptionSelect("availableTimePerDay", value)}
               options={AvailableTimePerDay}
               questionText="Bạn có bao nhiêu thời gian rảnh mỗi ngày?"
             />
@@ -1018,9 +709,7 @@ const Intro = () => {
               ref={question3Ref}
               currentQuestion="sleepHours"
               formData={formData}
-              onOptionSelect={(value) =>
-                handleOptionSelect("sleepHours", value)
-              }
+              onOptionSelect={(value) => handleOptionSelect("sleepHours", value)}
               options={SleepHoursLevel}
               questionText="Bạn ngủ bao nhiêu giờ mỗi ngày?"
             />
@@ -1039,9 +728,7 @@ const Intro = () => {
               ref={question4Ref}
               currentQuestion="exerciseFrequency"
               formData={formData}
-              onOptionSelect={(value) =>
-                handleOptionSelect("exerciseFrequency", value)
-              }
+              onOptionSelect={(value) => handleOptionSelect("exerciseFrequency", value)}
               options={ExerciseFrequency}
               questionText="Tần suất tập thể dục của bạn là bao nhiêu?"
               showConfirmButton={true}
@@ -1062,9 +749,7 @@ const Intro = () => {
             <ImprovementGoalQuestion
               ref={question5Ref}
               selectedGoal={formData.improvementGoal}
-              onGoalSelect={(value) =>
-                handleOptionSelect("improvementGoal", value)
-              }
+              onGoalSelect={(value) => handleOptionSelect("improvementGoal", value)}
               onSubmit={handleGoalSubmit}
               isLoading={isLoading}
               goals={improvementGoals}
@@ -1083,15 +768,14 @@ const Intro = () => {
             <EntertainmentQuestion
               ref={question6Ref}
               selectedActivities={formData.entertainmentActivities}
-              onActivitySelect={(value) =>
-                handleOptionSelect("entertainmentActivities", value)
-              }
+              onActivitySelect={(value) => handleOptionSelect("entertainmentActivities", value)}
               onSubmit={handleEntertainmentSubmit}
-              isLoading={isLoadingEntertainmentActivities}
+              isLoading={isLoading}
               activities={entertainmentActivities}
               total={entertainmentTotal}
               currentPage={entertainmentPage}
               onLoadMore={loadMoreEntertainment}
+              isLoadingMore={isLoadingMoreEntertainment}
             />
           </motion.div>
         )}
@@ -1107,11 +791,9 @@ const Intro = () => {
             <FavoriteFoodQuestion
               ref={question7Ref}
               selectedFoods={formData.foodActivities}
-              onFoodSelect={(value) =>
-                handleOptionSelect("foodActivities", value)
-              }
+              onFoodSelect={(value) => handleOptionSelect("foodActivities", value)}
               onSubmit={handleFoodSubmit}
-              isLoading={isLoadingFoodActivities && foodPage === 1}
+              isLoading={isLoading && foodPage === 1}
               foods={foodActivities}
               total={foodTotal}
               currentPage={foodPage}
@@ -1132,11 +814,9 @@ const Intro = () => {
             <PhysicalActivityQuestion
               ref={question8Ref}
               selectedActivities={formData.physicalActivities}
-              onActivitySelect={(value) =>
-                handleOptionSelect("physicalActivities", value)
-              }
+              onActivitySelect={(value) => handleOptionSelect("physicalActivities", value)}
               onSubmit={handlePhysicalActivitySubmit}
-              isLoading={isLoadingPhysicalActivities && physicalPage === 1}
+              isLoading={isLoading && physicalPage === 1}
               activities={physicalActivities}
               total={physicalTotal}
               currentPage={physicalPage}
@@ -1157,11 +837,9 @@ const Intro = () => {
             <TherapeuticActivityQuestion
               ref={question9Ref}
               selectedActivities={formData.therapeuticActivities}
-              onActivitySelect={(value) =>
-                handleOptionSelect("therapeuticActivities", value)
-              }
+              onActivitySelect={(value) => handleOptionSelect("therapeuticActivities", value)}
               onSubmit={handleTherapeuticActivitySubmit}
-              isLoading={isLoadingTherapeutic && therapeuticPage === 1}
+              isLoading={isLoading && therapeuticPage === 1}
               activities={therapeuticActivities}
               total={therapeuticTotal}
               currentPage={therapeuticPage}
@@ -1211,7 +889,6 @@ const Intro = () => {
                 label: job.JobTitle,
               }))}
               questionText="Chọn công việc của bạn:"
-              // showConfirmButton={true}
               onConfirm={() => handleJobSelect(selectedJobId)}
               isLoading={availableJobs.length === 0}
             />
@@ -1229,9 +906,7 @@ const Intro = () => {
             <PersonalityQuestion
               ref={question12Ref}
               selectedPersonality={formData.personalityTraits}
-              onPersonalitySelect={(value) =>
-                handleOptionSelect("personalityTraits", value)
-              }
+              onPersonalitySelect={(value) => handleOptionSelect("personalityTraits", value)}
               onSubmit={handlePersonalitySubmit}
               isSubmitting={isSubmitting}
             />
@@ -1249,9 +924,7 @@ const Intro = () => {
             <AllergiesQuestion
               ref={question13Ref}
               allergies={formData.allergies}
-              onAllergiesChange={(value) =>
-                handleOptionSelect("allergies", value)
-              }
+              onAllergiesChange={(value) => handleOptionSelect("allergies", value)}
               onSubmit={handleAllergiesSubmit}
               isSubmitting={isSubmitting}
             />
@@ -1269,9 +942,7 @@ const Intro = () => {
             <BirthDateQuestion
               ref={question13Ref}
               birthDate={formData.birthDate}
-              onBirthDateChange={(value) =>
-                handleOptionSelect("birthDate", value)
-              }
+              onBirthDateChange={(value) => handleOptionSelect("birthDate", value)}
               onSubmit={handleBirthDateSubmit}
               isSubmitting={isSubmitting}
             />
@@ -1291,9 +962,7 @@ const Intro = () => {
               address={formData.address}
               onAddressChange={(value) => handleOptionSelect("address", value)}
               onSubmit={(addressValue) => {
-                // Cập nhật state nếu muốn lưu lại
                 updateFormData("address", addressValue);
-                // Gọi submit với addressValue vừa chọn, không lấy từ state
                 submitAllDataWithAddress(addressValue);
               }}
               isSubmitting={isSubmitting}
@@ -1377,9 +1046,8 @@ const ProgressIndicator = ({ currentStep, totalSteps }) => {
           key={index}
           initial={{ scale: 0.8, opacity: 0.5 }}
           animate={{ scale: index <= currentStep ? 1.2 : 1, opacity: 1 }}
-          className={`w-3 h-3 rounded-full transition-all ${
-            index <= currentStep ? "bg-white" : "bg-white/30"
-          }`}
+          className={`w-3 h-3 rounded-full transition-all ${index <= currentStep ? "bg-white" : "bg-white/30"
+            }`}
         />
       ))}
     </div>
