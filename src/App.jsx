@@ -17,7 +17,6 @@ import Home from "./pages/User/Web/HomeUser";
 import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LearnAboutEmo from "./pages/User/Web/LearnAboutEmo";
-import { DataProvider } from "./components/IntroComponents/DataContext";
 import Intro from "./pages/User/Web/Intro";
 
 function App() {
@@ -26,16 +25,9 @@ function App() {
       {/* <TokenValidator> */}
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/EMO" />} />
-          <Route
-            path="/daily-habits"
-            element={
-              <DataProvider>
-                <Intro />
-              </DataProvider>
-            }
+          <Route path="/" element={<Navigate to="/daily-habits" />} />
+          <Route path="/daily-habits" element={<Intro />}
           />
-
           <Route path="/EMO" element={<Home />}>
             <Route index element={<Navigate to="learnAboutEmo" replace />} />
             <Route path="learnAboutEmo" element={<LearnAboutEmo />} />
