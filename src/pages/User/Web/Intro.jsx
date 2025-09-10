@@ -5,6 +5,7 @@ import { useAudio } from "../../../hooks/useAudio";
 import { useMultiStepForm } from "../../../hooks/useMultiStepForm";
 import { WelcomePopup } from "../../../components/IntroComponents/WelcomePopup";
 import { MoodQuestion } from "../../../components/IntroComponents/MoodOption";
+import { MemberIntro } from "../../../components/IntroComponents/Member";
 const Intro = () => {
   const question1Ref = useRef(null);
   const question2Ref = useRef(null);
@@ -54,7 +55,8 @@ const Intro = () => {
     <div
       className="min-h-screen w-full flex flex-col items-center justify-center relative"
       style={{
-        backgroundImage: `url('/bg_Question.webp')`,
+        backgroundImage: `url('/cnxh1.jpg')`,
+        // backgroundImage: `url('/bg_Question.webp')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -107,8 +109,9 @@ const Intro = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="w-full"
           >
-            <MoodQuestion
+            <MemberIntro
               ref={question1Ref}
               onConfirm={() => handleConfirm(0)}
               isLoading={false}
