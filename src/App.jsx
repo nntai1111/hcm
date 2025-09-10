@@ -31,6 +31,7 @@ function App() {
           <Route path="/EMO" element={<Home />}>
             <Route index element={<Navigate to="learnAboutEmo" replace />} />
             <Route path="learnAboutEmo" element={<LearnAboutEmo />} />
+            <Route path="learnAboutEmo1" element={<LearnAboutEmo />} />
 
           </Route>
 

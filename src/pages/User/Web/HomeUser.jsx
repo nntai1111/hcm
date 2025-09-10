@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, Outlet } from "react-router-dom";
-import { openLoginModal } from "../../../store/authSlice";
 import NavigaForWeb from "../../../components/Web/NavigaForWeb";
 import Footer from "../../../components/Web/Footer";
 import Social from "../../../components/Web/Social";
 
 const Home = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
-
   const userRole = useSelector((state) => state.auth.userRole);
   const [isLoggedIn, setIsLoggedIn] = useState(!!userRole);
-
-  // Thêm state để kiểm tra kích thước màn hình
   const [showFooter, setShowFooter] = useState(true);
 
   useEffect(() => {
@@ -21,9 +16,8 @@ const Home = () => {
   }, [userRole]);
 
   useEffect(() => {
-    // Hàm kiểm tra kích thước màn hình
     const handleResize = () => {
-      setShowFooter(window.innerWidth >= 640); // Ẩn Footer nếu nhỏ hơn 640px (sm)
+      setShowFooter(window.innerWidth >= 640);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -32,26 +26,24 @@ const Home = () => {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Header */}
+      {/* Header with fixed position */}
       {location.pathname !== "/HomeUser/dashboardUser" && (
-        <header className="flex items-center justify-between px-4 md:px-10 pt-4 w-full">
-          <nav className="flex-1 flex justify-center">
+        <header className="fixed top-0 left-0 right-0 z-50  w-full   transition-all duration-300 ease-in-out">
+          <nav className="flex justify-center">
             <NavigaForWeb />
           </nav>
         </header>
       )}
 
-      {/* Nội dung chính */}
-      <main className="flex justify-center">
+      {/* Main content with padding to avoid overlap with fixed header */}
+      <main className="flex justify-center flex-grow pt-24">
         <Outlet />
       </main>
 
-      {/* Hiển thị Social nếu đúng đường dẫn */}
-      <div className="bottom-[12%] fixed z-50">
+      {/* Social component */}
+      {/* <div className="bottom-[12%] fixed z-50">
         {location.pathname === "/EMO/learnAboutEmo" && <Social />}
-      </div>
-
-
+      </div> */}
 
       {/* Footer */}
       {location.pathname === "/EMO/learnAboutEmo" && showFooter && <Footer />}

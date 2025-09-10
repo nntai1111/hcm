@@ -39,9 +39,10 @@ const BackGround = () => {
       <div className="relative min-w-screen h-[150vh] overflow-hidden">
         {/* Nền chính - Không di chuyển */}
         <div
-          className="absolute top-30 left-0 w-full h-screen"
+          className="absolute top-[8%]  left-0 w-full h-screen"
           style={{
-            backgroundImage: "url('/bg_HomeCenter.webp')",
+            backgroundImage: "url('/untitled-0.png')",
+            // backgroundImage: "url('/bg_HomeCenter.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -55,18 +56,20 @@ const BackGround = () => {
         </div>
 
         {/* Các lớp ảnh di chuyển */}
-        <motion.img
-          src="/bg_HomeUnder.webp"
+        {/* <motion.img
+          // src="/bg_HomeUnder.webp"
+          src="/bg_left1.png"
           alt=""
           animate={{ y: -scrollY * 0.3 }}
-          className="absolute top-[20%] left-0 w-full h-[120vh] scale-100 object-cover"
-        />
+          className="absolute top-[30%] left-0 w-full  h-[90vh]"
+        /> */}
 
         <motion.img
-          src="/bg_HomeBottomRight.webp"
+          src="/bg_right1.png"
+          // src="/bg_HomeBottomRight.webp"
           alt=""
           animate={{ y: -scrollY * 0.1 }}
-          className="absolute top-[13%] left-0 w-full h-[120vh] scale-110 object-cover"
+          className="absolute top-[30%] left-0 w-full  h-[100vh]"
         />
       </div>
       {isMobile ? (
@@ -118,14 +121,15 @@ const BackGround = () => {
       ) : (
         <>
           <div>
+            <ImproveEmotion />
+          </div>
+          <div>
             <IntrFPT />
           </div>
           {/* <div>
             <IssueEmotion />
           </div> */}
-          <div>
-            <ImproveEmotion />
-          </div>
+
           <div>
             <QuestionRequest />
           </div>
