@@ -12,7 +12,6 @@ AOS.init({
   easing: "ease-in-out", // Hiệu ứng chuyển động
   once: false, // Chạy một lần khi cuộn
 });
-
 import Home from "./pages/User/Web/HomeUser";
 // import Intro from "./pages/User/Web/Intro";
 import { ToastContainer, Zoom, toast } from "react-toastify";
@@ -27,9 +26,7 @@ function App() {
       {/* <TokenValidator> */}
       <Router>
         <Routes>
-          {/* Role-based dashboard redirect */}
-
-          {/* Các route chính */}
+          <Route path="/" element={<Navigate to="/EMO" />} />
           <Route
             path="/daily-habits"
             element={
@@ -38,7 +35,7 @@ function App() {
               </DataProvider>
             }
           />
-          <Route path="/" element={<Navigate to="/EMO" />} />
+
           <Route path="/EMO" element={<Home />}>
             <Route index element={<Navigate to="learnAboutEmo" replace />} />
             <Route path="learnAboutEmo" element={<LearnAboutEmo />} />

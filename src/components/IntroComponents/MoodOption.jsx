@@ -45,11 +45,10 @@ export const MoodOption = ({ emoji, label, value, isSelected, onClick }) => {
       onClick={handleClick}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className={`relative flex flex-col items-center p-3 rounded-xl cursor-pointer transition-all overflow-hidden ${
-        isSelected
+      className={`relative flex flex-col items-center p-3 rounded-xl cursor-pointer transition-all overflow-hidden ${isSelected
           ? "bg-gradient-to-br from-[#602985] to-[#8034bb] text-white shadow-lg"
           : "bg-white/10 backdrop-blur-sm text-white hover:bg-white/20"
-      }`}
+        }`}
       style={{ width: "80px", height: "80px" }}>
       <Ripple isActive={isClicked} onComplete={() => setIsClicked(false)} />
       {isSelected && (
@@ -232,9 +231,8 @@ export const MoodQuestion = React.forwardRef(
             <motion.button
               onClick={onConfirm}
               disabled={isLoading}
-              className={`mt-2 px-5 py-2 bg-gradient-to-r from-[#602985] to-[#7b42b0] text-white rounded-lg hover:bg-purple-800 transition-all flex items-center gap-1 ${
-                isLoading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`mt-2 px-5 py-2 bg-gradient-to-r from-[#602985] to-[#7b42b0] text-white rounded-lg hover:bg-purple-800 transition-all flex items-center gap-1 ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               whileHover={{
                 scale: isLoading ? 1 : 1.03,
               }}
