@@ -6,6 +6,10 @@ import { useMultiStepForm } from "../../../hooks/useMultiStepForm";
 import { WelcomePopup } from "../../../components/IntroComponents/WelcomePopup";
 import { MoodQuestion } from "../../../components/IntroComponents/MoodOption";
 import { MemberIntro } from "../../../components/IntroComponents/Member";
+import { Func } from "../../../components/IntroComponents/Function";
+import { ContentList } from "../../../components/IntroComponents/Content";
+import { ContentList2 } from "../../../components/IntroComponents/Content2";
+import { EndIntros } from "../../../components/IntroComponents/EndIntro";
 const Intro = () => {
   const question1Ref = useRef(null);
   const question2Ref = useRef(null);
@@ -127,7 +131,7 @@ const Intro = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <MoodQuestion
+            <ContentList
               ref={question2Ref}
               onConfirm={() => handleConfirm(1)}
               isLoading={false}
@@ -143,7 +147,7 @@ const Intro = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <MoodQuestion
+            <ContentList2
               ref={question3Ref}
               onConfirm={() => handleConfirm(2)}
               isLoading={false}
@@ -159,7 +163,7 @@ const Intro = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <MoodQuestion
+            <EndIntros
               ref={question4Ref}
               onConfirm={() => handleConfirm(3)}
               isLoading={false}
@@ -167,7 +171,7 @@ const Intro = () => {
           </motion.div>
         )}
 
-        {!showWelcomePopup && currentStep === 4 && (
+        {/* {!showWelcomePopup && currentStep === 4 && (
           <motion.div
             key="step5"
             initial={{ opacity: 0, x: 100 }}
@@ -181,7 +185,7 @@ const Intro = () => {
               isLoading={false}
             />
           </motion.div>
-        )}
+        )} */}
       </AnimatePresence>
     </div>
   );

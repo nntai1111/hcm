@@ -1,7 +1,8 @@
+// MoodOption.jsx
 import React from "react";
 import { motion } from "framer-motion";
 
-export const Func = React.forwardRef(({ onConfirm, isLoading }, ref) => {
+export const EndIntros = React.forwardRef(({ onConfirm, isLoading }, ref) => {
     return (
         <motion.div
             ref={ref}
@@ -17,7 +18,7 @@ export const Func = React.forwardRef(({ onConfirm, isLoading }, ref) => {
                 transition={{ duration: 0.5, delay: 0.1 }}
             >
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
-                    Đây là Function
+                    Đây là Content list
                 </span>
                 <motion.div
                     className="absolute -bottom-2 left-1/2 w-16 h-0.5 bg-gradient-to-r from-purple-400 to-white rounded-full"
@@ -65,4 +66,4 @@ export const Func = React.forwardRef(({ onConfirm, isLoading }, ref) => {
     );
 });
 
-export default Func;
+export default EndIntros;
