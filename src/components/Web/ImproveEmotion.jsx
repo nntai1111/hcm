@@ -2,7 +2,7 @@ import React from "react";
 
 const ImproveEmotion = () => {
   return (
-    <div className="flex flex-col items-center w-full min-h-screen px-4 pb-8">
+    <div className="flex flex-col items-center w-full min-h-screen px-4 pb-6">
 
       <h1 className="text-4xl sm:text-5xl font-bold  text-[#fd6c6c] max-w-3xl text-center mb-12 tracking-tight">
         I. Chủ nghĩa xã hội

@@ -4,7 +4,7 @@ const IntrFPT = () => {
   return (
     <div className="flex flex-col items-center w-full h-screen mt-2">
 
-      <h1 className="text-4xl sm:text-5xl font-bold  text-[#fd6c6c] max-w-4xl text-center mb-12 tracking-tight">
+      <h1 className="text-4xl sm:text-5xl font-bold  text-[#fd6c6c] max-w-4xl text-center my-8 tracking-tight">
         II. Thời kỳ quá độ lên chủ nghĩa xã hội
       </h1>
 
@@ -12,7 +12,7 @@ const IntrFPT = () => {
         <div className="flex flex-col items-center justify-center ">
           <div
             data-aos="zoom-out"
-            className="mt-10 ml-5 max-w-3xl text-lg font-light text-gray-800 leading-relaxed"
+            className="mt-10 ml-5 max-w-3xl text-lg font-light  leading-relaxed"
           >
             <p>
               <strong className="text-red-500 font-bold">
@@ -24,7 +24,7 @@ const IntrFPT = () => {
 
           <div
             data-aos="zoom-out"
-            className="mt-10 ml-5 max-w-2xl text-lg font-light text-gray-800 leading-relaxed"
+            className="mt-10 ml-5 max-w-2xl text-lg font-light  leading-relaxed"
           >
             <p>
               <strong className="text-red-500 ">Khái niệm:</strong> Giai đoạn phức tạp, lâu dài, phụ thuộc điều kiện mỗi quốc gia.<br />
@@ -37,7 +37,7 @@ const IntrFPT = () => {
         </div>
         <div
           data-aos="zoom-in-up"
-          className="flex justify-center items-center text-lg">
+          className="flex justify-center items-center text-lg mr-12">
           <div className="relative w-[400px]">
             {/* Hình ảnh chính */}
             <div className="w-[400px] h-[400px] rounded-2xl overflow-hidden shadow-lg">

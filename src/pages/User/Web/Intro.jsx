@@ -66,7 +66,7 @@ const Intro = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <ProgressIndicator currentStep={currentStep} totalSteps={5} />
+      <ProgressIndicator currentStep={currentStep} totalSteps={4} />
       {!showWelcomePopup && (
         <MuteButton isMuted={muted} onToggle={toggleMute} />
       )}
@@ -163,7 +163,7 @@ const Intro = () => {
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
-            <EndIntros
+            <Func
               ref={question4Ref}
               onConfirm={() => handleConfirm(3)}
               isLoading={false}

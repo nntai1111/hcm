@@ -1,4 +1,3 @@
-// MoodOption.jsx
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -29,17 +28,19 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="min-h-screen flex flex-col justify-center items-center p-6 sm:p-8 bg-black/40"
+            className="h-screen flex flex-col justify-center items-center p-4 sm:p-6 bg-black/40 overflow-hidden"
         >
             <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-10 text-center relative"
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 text-center relative"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
             >
-                <span className="text-white">Thời kỳ Quá độ lên Chủ nghĩa Xã hội</span>
+                <span className="text-white brightness-150 contrast-125">
+                    Thời kỳ Quá độ lên Chủ nghĩa Xã hội
+                </span>
                 <motion.div
-                    className="absolute -bottom-3 left-1/2 w-20 h-1 bg-white rounded-full"
+                    className="absolute -bottom-3 left-1/2 w-20 h-1 bg-gradient-to-r from-red-300 to-red-500 rounded-full"
                     style={{ transform: "translateX(-50%)" }}
                     initial={{ width: 0 }}
                     animate={{ width: "5rem" }}
@@ -48,23 +49,23 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
             </motion.h1>
 
             {/* 3 ô ở trên */}
-            <div className="grid grid-cols-3 gap-6 w-full max-w-6xl mb-6">
+            <div className="grid grid-cols-3 gap-4 w-full max-w-5xl mb-4">
                 {[
                     {
                         title: "Khái niệm Thời kỳ Quá độ",
-                        image: "/30-9-bac.jpeg",
+                        image: "/ndii1.jpg",
                         description:
                             "Thời kỳ quá độ là giai đoạn chuyển đổi từ xã hội cũ sang chủ nghĩa xã hội, thực hiện các thay đổi về kinh tế, chính trị, văn hóa, tùy thuộc vào điều kiện mỗi quốc gia.",
                     },
                     {
                         title: "Cần thiết Khách quan",
-                        image: "/30-9-bac.jpeg",
+                        image: "/ndii2.png",
                         description:
                             "Thời kỳ quá độ cần thiết do mâu thuẫn kinh tế - xã hội trong xã hội cũ, đòi hỏi cải tạo và xây dựng các yếu tố mới để tiến tới chủ nghĩa xã hội.",
                     },
                     {
                         title: "Nội dung của Thời kỳ Quá độ",
-                        image: "/30-9-bac.jpeg",
+                        image: "/ndii3.png",
                         description:
                             "Bao gồm xây dựng cơ sở vật chất - kỹ thuật, nhà nước xã hội chủ nghĩa, văn hóa tiên tiến, và công bằng xã hội, dưới sự lãnh đạo của Đảng Cộng sản.",
                     },
@@ -76,18 +77,18 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
                         initial="hidden"
                         animate="visible"
                         whileHover="hover"
-                        className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transform transition-all duration-300"
+                        className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col transform transition-all duration-300"
                     >
                         <img
                             src={item.image}
                             alt={item.title}
-                            className="w-full h-48 object-cover"
+                            className="w-full h-32 object-cover brightness-110"
                         />
-                        <div className="p-6 flex flex-col flex-grow">
-                            <h2 className="text-xl font-bold text-purple-800 mb-3 text-center">
+                        <div className="p-4 flex flex-col flex-grow">
+                            <h2 className="text-lg font-bold text-[#ff5858] mb-2 text-center">
                                 {item.title}
                             </h2>
-                            <p className="text-gray-600 text-sm text-center flex-grow">
+                            <p className="text-gray-600 text-xs text-center flex-grow">
                                 {item.description}
                             </p>
                         </div>
@@ -96,7 +97,7 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
             </div>
 
             {/* 2 ô ở dưới chính giữa */}
-            <div className="grid grid-cols-2 gap-6 w-full max-w-4xl">
+            <div className="grid grid-cols-2 gap-4 w-full max-w-3xl mb-4">
                 {[
                     {
                         title: "Đặc điểm Thời kỳ Quá độ ở Việt Nam",
@@ -106,30 +107,30 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
                     },
                     {
                         title: "Ý nghĩa của Thời kỳ Quá độ",
-                        image: "/30-9-bac.jpeg",
+                        image: "/ndii5_1.png",
                         description:
                             "Thời kỳ quá độ khẳng định quy luật phát triển lịch sử, định hướng chính sách phát triển kinh tế, chính trị, văn hóa, giúp Việt Nam tránh sai lầm và tiến tới mục tiêu xã hội chủ nghĩa.",
                     },
                 ].map((item, index) => (
                     <motion.div
                         key={index}
-                        custom={index + 3} // Offset cho animation
+                        custom={index + 3}
                         variants={cardVariants}
                         initial="hidden"
                         animate="visible"
                         whileHover="hover"
-                        className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col transform transition-all duration-300"
+                        className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col transform transition-all duration-300"
                     >
                         <img
                             src={item.image}
                             alt={item.title}
-                            className="w-full h-48 object-cover"
+                            className="w-full h-40 object-cover brightness-110"
                         />
-                        <div className="p-6 flex flex-col flex-grow">
-                            <h2 className="text-xl font-bold text-purple-800 mb-3 text-center">
+                        <div className="p-4 flex flex-col flex-grow">
+                            <h2 className="text-lg font-bold text-[#ff5858] mb-2 text-center">
                                 {item.title}
                             </h2>
-                            <p className="text-gray-600 text-sm text-center flex-grow">
+                            <p className="text-gray-600 text-xs text-center flex-grow">
                                 {item.description}
                             </p>
                         </div>
@@ -140,7 +141,7 @@ export const ContentList2 = React.forwardRef(({ onConfirm, isLoading }, ref) => 
             <motion.button
                 onClick={onConfirm}
                 disabled={isLoading}
-                className={`relative z-50 mt-4 px-5 py-2 bg-gradient-to-r from-[#602985] to-[#7b42b0] text-white rounded-lg hover:bg-purple-800 transition-all flex items-center gap-1 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                className={`relative z-50 mt-2 px-4 py-1.5 bg-gradient-to-r from-[#602985] to-[#7b42b0] text-white rounded-lg hover:bg-purple-800 transition-all flex items-center gap-1 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                 whileHover={{ scale: isLoading ? 1 : 1.03 }}
                 whileTap={{ scale: isLoading ? 1 : 0.97 }}
             >

@@ -25,14 +25,15 @@ function App() {
       {/* <TokenValidator> */}
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/daily-habits" />} />
-          <Route path="/daily-habits" element={<Intro />}
+          <Route path="/" element={<Navigate to="/intro" />} />
+          <Route path="/intro" element={<Intro />}
           />
-          <Route path="/EMO" element={<Home />}>
-            <Route index element={<Navigate to="learnAboutEmo" replace />} />
-            <Route path="learnAboutEmo" element={<LearnAboutEmo />} />
-            <Route path="learnAboutEmo1" element={<LearnAboutEmo />} />
-
+          <Route path="/mln131" element={<Home />}>
+            {/* <Route index element={<Navigate to="learnAboutEmo" replace />} /> */}
+            <Route path="" element={<LearnAboutEmo />} />
+            <Route path="content" element={<LearnAboutEmo />} />
+            <Route path="analysis" element={<LearnAboutEmo />} />
+            <Route path="test" element={<LearnAboutEmo />} />
           </Route>
 
         </Routes>

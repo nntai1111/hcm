@@ -46,7 +46,7 @@ const Home = () => {
       </div> */}
 
       {/* Footer */}
-      {location.pathname === "/EMO/learnAboutEmo" && showFooter && <Footer />}
+      {location.pathname === "/mln131" && showFooter && <Footer />}
     </div>
   );
 };

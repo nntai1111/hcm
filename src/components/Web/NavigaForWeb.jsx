@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaHistory, FaChartBar, FaBook } from "react-icons/fa"; // Importing icons for nav links
+import { Book } from "lucide-react";
 
 // Hook to check screen size
 function useShortMenuLabel() {
@@ -42,32 +43,32 @@ const NavigaForWeb = () => {
         {/* Right Section: Additional Links */}
         <div className="flex items-center gap-8 ml-auto text-lg">
           <Link
-            to="/EMO"
-            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/EMO/learnAboutEmo" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
+            to="/mln131"
+            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/mln131" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
               }`}
           >
             <FaHome className=" " />
             {shortMenu ? "Trang..." : "Trang chủ"}
           </Link>
           <Link
-            to="/EMO/learnAboutEmo1"
-            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/EMO/learnAboutEmo1" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
+            to="/mln131/content"
+            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/mln131/content" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
               }`}
           >
-            <FaHistory className="" />
-            {shortMenu ? "Dòng..." : "Dòng thời gian"}
+            <Book className="" />
+            {shortMenu ? "Nội..." : "Nội dung"}
           </Link>
           <Link
-            to="/EMO/learnAboutEmo2"
-            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/EMO/learnAboutEmo2" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
+            to="/mln131/analysis"
+            className={` flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/mln131/analysis" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
               }`}
           >
             <FaChartBar className="" />
             {shortMenu ? "Phân..." : "Phân tích kết luận"}
           </Link>
           <Link
-            to="/EMO/learnAboutEmo3"
-            className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/EMO/learnAboutEmo3" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
+            to="/mln131/test"
+            className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 ease-in-out  ${location.pathname === "/mln131/test" ? "bg-[#f15a5a] text-white" : "hover:bg-red-100 hover:text-red-500"
               }`}
           >
             <FaBook className="" />

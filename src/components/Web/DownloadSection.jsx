@@ -1,28 +1,8 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { openLoginModal } from "../../store/authSlice";
 import { toast } from "react-toastify";
 import { FaPlayCircle, FaBook } from "react-icons/fa"; // Import icons from react-icons
 
 const DownloadSection = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-
-  // ✅ Lấy role từ Redux
-  const userRole = useSelector((state) => state.auth.userRole);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!userRole);
-
-  useEffect(() => {
-    setIsLoggedIn(!!userRole);
-  }, [userRole]);
-
-  const handleTestClick = (event) => {
-    if (["Doctor", "Staff", "Manager"].includes(userRole)) {
-      event.preventDefault(); // Chặn chuyển trang
-      toast.warning("Bạn không thể truy cập vào bài kiểm tra!"); // Hiển thị thông báo
-    }
-  };
 
   return (
     <div className="min-h-screen  flex items-center justify-center">
@@ -47,22 +27,12 @@ const DownloadSection = () => {
           </p>
           <div className="flex justify-center gap-6 mt-6 mb-2">
             <button className="flex items-center gap-2 bg-[#ff5e5e] text-white px-6 py-3 rounded-lg hover:bg-[#e24a4a] transition-colors">
-              {isLoggedIn ? (
-                <Link
-                  to="/EMO/testEmotion"
-                  onClick={handleTestClick}
-                  className="flex items-center gap-2"
-                >
-                  <FaPlayCircle /> Khám phá ngay
-                </Link>
-              ) : (
-                <span
-                  className="flex items-center gap-2"
-                  onClick={() => dispatch(openLoginModal())}
-                >
-                  <FaPlayCircle /> Khám phá ngay
-                </span>
-              )}
+              <span
+                className="flex items-center gap-2"
+                onClick={() => dispatch(openLoginModal())}
+              >
+                <FaPlayCircle /> Khám phá ngay
+              </span>
             </button>
             <button className="flex items-center gap-2 bg-gray-200 text-purple-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors">
               <FaBook /> Kiểm tra kiến thức
