@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { FaBook, FaLightbulb, FaGlobe } from 'react-icons/fa';
+import { FaBook, FaLightbulb, FaGlobe, FaUsers } from 'react-icons/fa';
 import SocialismPage1 from '../../../components/Content/SocialismPage1';
 import SocialismPage2 from '../../../components/Content/SocialismPage2';
 import SocialismPage3 from '../../../components/Content/SocialismPage3';
+import SocialismPage4 from '../../../components/Content/SocialismPage4';
 
 const SocialismApp = () => {
+    const navigate = useNavigate();
     const sections = [
         {
             id: 'section1',
@@ -24,6 +27,12 @@ const SocialismApp = () => {
             title: 'Đặc trưng bản chất',
             icon: <FaGlobe className="text-4xl text-red-600 mb-4" />,
             component: <SocialismPage3 />,
+        },
+        {
+            id: 'section4',
+            title: 'Thời kỳ quá độ',
+            icon: <FaUsers className="text-4xl text-red-600 mb-4" />,
+            component: <SocialismPage4 />,
         },
     ];
 
@@ -52,7 +61,7 @@ const SocialismApp = () => {
                 <div className="flex flex-col items-center text-center">
                     {section.icon}
                     <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{section.title}</h2>
-                    <div className="w-full">{section.component}</div>
+                    <div className="w-full text-left">{section.component}</div>
                 </div>
             </motion.div>
         );
@@ -60,7 +69,7 @@ const SocialismApp = () => {
 
     return (
         <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 font-sans bg-[url('/untitled-0.png')] bg-fixed bg-cover bg-center bg-opacity-20">
-            <motion.div
+            {/* <motion.div
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
@@ -70,7 +79,7 @@ const SocialismApp = () => {
                 <p className="text-lg text-gray-700 mt-4">
                     Tìm hiểu về chủ nghĩa xã hội từ khái niệm cơ bản đến đặc trưng cốt lõi.
                 </p>
-            </motion.div>
+            </motion.div> */}
 
             <div className="w-full px-4">
                 {sections.map((section) => (
@@ -82,18 +91,21 @@ const SocialismApp = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="mt-12 text-center"
+                className="text-center"
             >
-                <p className="text-lg text-gray-700 mb-4">Chia sẻ kiến thức và khám phá thêm!</p>
                 <motion.a
                     href="#"
-                    whileHover={{ scale: 1.05, backgroundColor: '#ef4444' }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-block px-6 py-3 bg-red-500 text-white font-semibold rounded-full shadow-md transition-colors"
+                    className="inline-block px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 
+               text-white font-semibold rounded-full shadow-lg border-2 border-white
+               animate-bounce hover:shadow-xl transition-all"
+                    onClick={() => navigate("/mln131/test")}
                 >
-                    Khám Phá Thêm
+                    Ôn tập ngay
                 </motion.a>
             </motion.div>
+
         </div>
     );
 };

@@ -5,11 +5,11 @@ const SocialismPage3 = () => {
     const [activeSection, setActiveSection] = useState('liberation');
     const sections = {
         liberation: {
-            title: "Giải phóng giai cấp, dân tộc",
+            title: "Giải phóng giai cấp, dân tộc, xã hội",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Xóa bóc lột, giải phóng lao động, thúc đẩy phát triển tự do. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Xây dựng xã hội "dân giàu, nước mạnh, dân chủ, công bằng, văn minh".
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Đây là bản chất cốt lõi của chủ nghĩa xã hội, nhằm xóa bỏ tình trạng bóc lột giai cấp, giải phóng nhân dân lao động khỏi áp bức và bất công. Chủ nghĩa xã hội thúc đẩy sự phát triển tự do, toàn diện về thể chất, tinh thần và đạo đức của con người, giúp con người không còn bị tha hóa như trong chủ nghĩa tư bản mà trở thành chủ thể sáng tạo của lịch sử. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Đảng Cộng sản Việt Nam xác định mục tiêu xây dựng chủ nghĩa xã hội với phương châm "dân giàu, nước mạnh, dân chủ, công bằng, văn minh", hướng tới phát triển con người toàn diện.
                 </p>
             ),
             images: [
@@ -18,11 +18,11 @@ const SocialismPage3 = () => {
             ]
         },
         ownership: {
-            title: "Nhân dân làm chủ",
+            title: "Nhân dân lao động làm chủ",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Nhân dân nắm quyền qua nhà nước của dân, do dân, vì dân. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Nhà nước pháp quyền xã hội chủ nghĩa với Quốc hội, Mặt trận Tổ quốc.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Nhân dân lao động là chủ thể của xã hội xã hội chủ nghĩa, nắm quyền lực thông qua nhà nước kiểu mới (nhà nước của dân, do dân, vì dân). Điều này được thể hiện qua nền dân chủ xã hội chủ nghĩa, nơi mọi quyết định đều phục vụ lợi ích của nhân dân lao động. Đảng Cộng sản lãnh đạo nhưng dựa trên ý chí và nguyện vọng của nhân dân, đảm bảo quyền làm chủ được thực thi thông qua các cơ chế như bầu cử, giám sát và tham gia quản lý xã hội. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Việt Nam xây dựng nhà nước pháp quyền xã hội chủ nghĩa, với các cơ chế như Quốc hội, Mặt trận Tổ quốc, và các tổ chức chính trị - xã hội để đảm bảo quyền làm chủ của nhân dân.
                 </p>
             ),
             images: [
@@ -31,11 +31,11 @@ const SocialismPage3 = () => {
             ]
         },
         economy: {
-            title: "Kinh tế phát triển",
+            title: "Kinh tế phát triển cao",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Dựa trên công hữu, công nghiệp hóa, phân phối theo lao động. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Kinh tế thị trường định hướng xã hội chủ nghĩa, nhà nước chủ đạo.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Kinh tế xã hội chủ nghĩa dựa trên chế độ công hữu (bao gồm sở hữu nhà nước và sở hữu tập thể) làm nền tảng, kết hợp với các hình thức sở hữu khác trong giai đoạn đầu. Các lực lượng sản xuất hiện đại bao gồm công nghiệp hóa, ứng dụng khoa học - công nghệ và cơ giới hóa. Phân phối theo lao động là nguyên tắc chính, đảm bảo công bằng dựa trên đóng góp lao động của mỗi người. Ở giai đoạn đầu, vẫn tồn tại nền kinh tế nhiều thành phần để thúc đẩy sản xuất. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Việt Nam phát triển nền kinh tế thị trường định hướng xã hội chủ nghĩa, trong đó kinh tế nhà nước giữ vai trò chủ đạo, kết hợp với kinh tế tư nhân và các thành phần kinh tế khác.
                 </p>
             ),
             images: [
@@ -44,11 +44,11 @@ const SocialismPage3 = () => {
             ]
         },
         culture: {
-            title: "Văn hóa, giáo dục",
+            title: "Văn hóa, giáo dục, công bằng xã hội",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Xây dựng văn hóa tiên tiến, nâng dân trí, đảm bảo công bằng. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Phổ cập giáo dục, xóa đói giảm nghèo, bảo hiểm y tế.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Chủ nghĩa xã hội chú trọng xây dựng nền văn hóa tiên tiến, đậm đà bản sắc dân tộc, nâng cao dân trí và đảm bảo công bằng xã hội. Giáo dục và khoa học được ưu tiên phát triển để nâng cao chất lượng nguồn nhân lực và thúc đẩy sáng tạo. Công bằng xã hội được thể hiện qua việc giảm dần chênh lệch giàu nghèo, đảm bảo an sinh xã hội và tạo cơ hội bình đẳng cho mọi người. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Việt Nam thúc đẩy phổ cập giáo dục, phát triển y tế và các chính sách an sinh xã hội như xóa đói giảm nghèo, bảo hiểm y tế, và hỗ trợ vùng sâu, vùng xa.
                 </p>
             ),
             images: [
@@ -57,11 +57,11 @@ const SocialismPage3 = () => {
             ]
         },
         unity: {
-            title: "Đoàn kết dân tộc, quốc tế",
+            title: "Đoàn kết dân tộc và quốc tế",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Đề cao đoàn kết, hợp tác quốc tế vì hòa bình, phát triển. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Đại đoàn kết dân tộc, tham gia Liên Hợp Quốc, ASEAN.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Chủ nghĩa xã hội đề cao sự đoàn kết giữa các dân tộc trong một quốc gia và giữa các quốc gia trên thế giới, dựa trên nguyên tắc bình đẳng, tôn trọng lẫn nhau. Trong bối cảnh toàn cầu hóa, chủ nghĩa xã hội nhấn mạnh hợp tác quốc tế để xây dựng hòa bình, ổn định và phát triển bền vững. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Việt Nam thực hiện chính sách đại đoàn kết dân tộc, hòa hợp các dân tộc thiểu số, đồng thời tích cực tham gia các tổ chức quốc tế như Liên Hợp Quốc, ASEAN để thúc đẩy hợp tác và hòa bình.
                 </p>
             ),
             images: [
@@ -70,11 +70,11 @@ const SocialismPage3 = () => {
             ]
         },
         leadership: {
-            title: "Lãnh đạo của Đảng",
+            title: "Lãnh đạo của Đảng Cộng sản",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Đảng Cộng sản lãnh đạo, đại diện lợi ích nhân dân. <br />
-                    <strong>Thực tiễn Việt Nam:</strong> Đảng lãnh đạo công cuộc đổi mới.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Đảng Cộng sản đóng vai trò lãnh đạo trong việc tổ chức, định hướng và xây dựng xã hội xã hội chủ nghĩa. Đảng đại diện cho lợi ích của giai cấp công nhân và nhân dân lao động, đảm bảo sự thống nhất trong mục tiêu và hành động. Sự lãnh đạo của Đảng là yếu tố then chốt để đảm bảo thắng lợi của cách mạng xã hội chủ nghĩa. <br />
+                    <strong>Liên hệ thực tiễn ở Việt Nam:</strong> Đảng Cộng sản Việt Nam là lực lượng lãnh đạo duy nhất, tổ chức thực hiện đường lối đổi mới và xây dựng chủ nghĩa xã hội phù hợp với điều kiện đất nước.
                 </p>
             ),
             images: [
@@ -92,9 +92,9 @@ const SocialismPage3 = () => {
                 transition={{ duration: 0.5 }}
                 className="rounded-lg p-6 mb-6"
             >
-                <h2 className="text-3xl font-bold text-gray-900">Đặc trưng bản chất của chủ nghĩa xã hội</h2>
+                <h2 className="text-3xl font-bold text-gray-900 text-left">Những đặc trưng bản chất của chủ nghĩa xã hội</h2>
             </motion.div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6 justify-start">
                 {Object.keys(sections).map((key) => (
                     <motion.button
                         key={key}

@@ -50,7 +50,7 @@ const SocialismPage1 = () => {
                 transition={{ duration: 0.5 }}
                 className="rounded-lg p-6 mb-6"
             >
-                <h2 className="text-3xl font-bold text-gray-900">Chủ nghĩa xã hội</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Chủ nghĩa xã hội, giai đoạn đầu của hình thái kinh tế - xã hội cộng sản chủ nghĩa</h2>
             </motion.div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
                 {Object.keys(sections).map((key) => (

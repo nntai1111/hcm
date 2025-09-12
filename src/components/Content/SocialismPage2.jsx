@@ -7,8 +7,8 @@ const SocialismPage2 = () => {
         material: {
             title: "Tiền đề vật chất",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Phát triển lực lượng sản xuất dưới tư bản dẫn đến mâu thuẫn với chiếm hữu tư nhân, đòi hỏi công hữu, theo C. Mác và Ph. Ăngghen.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Sự phát triển cao của các lực lượng sản xuất dưới chủ nghĩa tư bản dẫn đến mâu thuẫn giữa tính chất xã hội hóa của sản xuất và hình thức chiếm hữu tư nhân về tư liệu sản xuất. Theo C. Mác và Ph. Ăngghen, khi các lực lượng sản xuất đạt đến một trình độ nhất định, chủ nghĩa tư bản trở thành lực cản đối với sự tiến bộ xã hội, đòi hỏi phải thay thế bằng chế độ công hữu về tư liệu sản xuất.
                 </p>
             ),
             images: [
@@ -19,8 +19,8 @@ const SocialismPage2 = () => {
         social: {
             title: "Tiền đề xã hội",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Giai cấp công nhân trưởng thành, dưới Đảng Cộng sản, thực hiện cách mạng xã hội chủ nghĩa lật đổ tư bản.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Sự trưởng thành của giai cấp công nhân với ý thức đấu tranh giai cấp và sứ mệnh lịch sử. Giai cấp công nhân, dưới sự lãnh đạo của Đảng Cộng sản, thực hiện cách mạng xã hội chủ nghĩa để lật đổ chủ nghĩa tư bản và thiết lập quyền lực của nhân dân lao động.
                 </p>
             ),
             images: [
@@ -31,8 +31,8 @@ const SocialismPage2 = () => {
         historical: {
             title: "Điều kiện lịch sử",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Cách mạng Tháng Mười Nga (1917) chứng minh xã hội chủ nghĩa có thể ra đời ở nước lạc hậu, theo V.I. Lênin.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Cách mạng Tháng Mười Nga (1917) là minh chứng đầu tiên cho thấy chủ nghĩa xã hội có thể ra đời ở các quốc gia lạc hậu về kinh tế nếu có sự lãnh đạo đúng đắn. V.I. Lênin bổ sung rằng ở những nước chưa trải qua giai đoạn phát triển đầy đủ của chủ nghĩa tư bản, cần thực hiện thời kỳ quá độ gián tiếp thông qua các bước trung gian như công nghiệp hóa, hợp tác hóa nông nghiệp và hiện đại hóa kinh tế.
                 </p>
             ),
             images: [
@@ -43,8 +43,8 @@ const SocialismPage2 = () => {
         cause: {
             title: "Nguyên nhân sâu xa",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Mâu thuẫn giai cấp công nhân và tư sản dẫn đến cách mạng vô sản, theo học thuyết Mác - Lênin.
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Mâu thuẫn giữa giai cấp công nhân và giai cấp tư sản trong chủ nghĩa tư bản dẫn đến đấu tranh giai cấp ngày càng gay gắt, cuối cùng kết thúc bằng cách mạng vô sản. Đây là quy luật tất yếu theo học thuyết về hình thái kinh tế - xã hội của chủ nghĩa Mác - Lênin.
                 </p>
             ),
             images: [
@@ -55,8 +55,8 @@ const SocialismPage2 = () => {
         practice: {
             title: "Thực tiễn Việt Nam",
             content: (
-                <p className="text-lg leading-relaxed text-gray-900">
-                    Việt Nam xây dựng xã hội chủ nghĩa từ mâu thuẫn thực dân, phong kiến, dưới Đảng Cộng sản, từ Cách mạng Tháng Tám (1945).
+                <p className="text-lg leading-relaxed text-gray-900 text-left">
+                    Ở Việt Nam, điều kiện ra đời của chủ nghĩa xã hội được xác định bởi mâu thuẫn giữa nhân dân lao động với thực dân và phong kiến, kết hợp với sự lãnh đạo của Đảng Cộng sản Việt Nam. Cách mạng Tháng Tám (1945) đã tạo tiền đề cho việc xây dựng chủ nghĩa xã hội ở miền Bắc và sau đó trên cả nước sau năm 1975.
                 </p>
             ),
             images: [
@@ -74,9 +74,9 @@ const SocialismPage2 = () => {
                 transition={{ duration: 0.5 }}
                 className="rounded-lg p-6 mb-6"
             >
-                <h2 className="text-3xl font-bold text-gray-900">Điều kiện ra đời chủ nghĩa xã hội</h2>
+                <h2 className="text-3xl font-bold text-gray-900 text-left">Điều kiện ra đời chủ nghĩa xã hội</h2>
             </motion.div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 justify-start">
                 {Object.keys(sections).map((key) => (
                     <motion.button
                         key={key}
