@@ -59,10 +59,16 @@ const SocialismApp = () => {
                 className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg mb-8"
             >
                 <div className="flex flex-col items-center text-center">
-                    {section.icon}
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">{section.title}</h2>
-                    <div className="w-full text-left">{section.component}</div>
+                    <div className="flex items-center gap-2 mb-4">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 flex items-center">
+                            <span className="relative top-1">{section.icon}</span>
+                            <span className="ml-2">{section.title}</span>
+                        </h2>
+                    </div>
+
+                    <div className="w-full">{section.component}</div>
                 </div>
+
             </motion.div>
         );
     };
