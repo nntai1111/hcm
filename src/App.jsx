@@ -18,7 +18,9 @@ import { ToastContainer, Zoom, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LearnAboutEmo from "./pages/User/Web/LearnAboutEmo";
 import Intro from "./pages/User/Web/Intro";
-
+import TestEmotion from "./pages/User/Web/TestEmotion";
+import ContentFull from "./pages/User/Web/ContentFull";
+import Analysis from "./pages/User/Web/Analysis";
 function App() {
   return (
     <>
@@ -31,9 +33,9 @@ function App() {
           <Route path="/mln131" element={<Home />}>
             {/* <Route index element={<Navigate to="learnAboutEmo" replace />} /> */}
             <Route path="" element={<LearnAboutEmo />} />
-            <Route path="content" element={<LearnAboutEmo />} />
-            <Route path="analysis" element={<LearnAboutEmo />} />
-            <Route path="test" element={<LearnAboutEmo />} />
+            <Route path="content" element={<ContentFull />} />
+            <Route path="analysis" element={<Analysis />} />
+            <Route path="test" element={<TestEmotion />} />
           </Route>
 
         </Routes>

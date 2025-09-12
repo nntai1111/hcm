@@ -1,8 +1,10 @@
 import { openLoginModal } from "../../store/authSlice";
 import { toast } from "react-toastify";
 import { FaPlayCircle, FaBook } from "react-icons/fa"; // Import icons from react-icons
+import { useNavigate } from "react-router-dom";
 
 const DownloadSection = () => {
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen  flex items-center justify-center">
@@ -29,12 +31,15 @@ const DownloadSection = () => {
             <button className="flex items-center gap-2 bg-[#ff5e5e] text-white px-6 py-3 rounded-lg hover:bg-[#e24a4a] transition-colors">
               <span
                 className="flex items-center gap-2"
-                onClick={() => dispatch(openLoginModal())}
+                onClick={() => navigate("/mln131/content")}
               >
                 <FaPlayCircle /> Khám phá ngay
               </span>
             </button>
-            <button className="flex items-center gap-2 bg-gray-200 text-purple-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors">
+            <button
+              className="flex items-center gap-2 bg-white text-[#e24a4a] font-bold px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors"
+              onClick={() => navigate("/mln131/test")}
+            >
               <FaBook /> Kiểm tra kiến thức
             </button>
           </div>

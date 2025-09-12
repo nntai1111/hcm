@@ -73,10 +73,6 @@ const BackGround = () => {
         <div>
           <IntrFPT />
         </div>
-        {/* <div>
-            <IssueEmotion />
-          </div> */}
-
         <div>
           <QuestionRequest />
         </div>
